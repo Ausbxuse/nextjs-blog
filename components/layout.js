@@ -1,14 +1,17 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Nav from './nav'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 
 const name = 'Peter'
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = 'Zhenyu\'s Website'
 
 export default function Layout({ children, home }) {
   return (
+
+    <Nav>
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -69,5 +72,6 @@ export default function Layout({ children, home }) {
         </div>
       )}
     </div>
+    </Nav>
   )
 }
