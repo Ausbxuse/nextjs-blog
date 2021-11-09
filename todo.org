@@ -1,0 +1,5 @@
+* Todo for my personal website
+** TODO page loading bar animation
+** TODO theme toggler
+** TODO left item in mobile navbar
+** TODO other pages(Contact, About, Donate)

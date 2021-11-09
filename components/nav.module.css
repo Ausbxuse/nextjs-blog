@@ -81,20 +81,68 @@
 
 .mobileNav {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100vw;
     height: 3em;
+    padding: 0 1em;
 }
+
+.mobileNavList {
+    position: fixed;
+    left: 100%;
+    min-height: 100vh;
+    width: 100vw;
+    z-index: 3;
+    padding: 2em 1em;
+    display: block;
+    transition: 0.4s ease;
+    background-color: #ffffff;
+}
+
+.mobileNavListActive {
+    position: fixed;
+    left: 0;
+    min-height: 100vh;
+    width: 100vw;
+    z-index: 3;
+    padding: 2em 1em;
+    display: block;
+    transition: 0.4s ease;
+    background-color: #ffffff;
+}
+
+.mobileNavList li {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 1em auto;
+    text-align: center;
+}
+
+.mobileNavListActive li {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 1em auto;
+    text-align: center;
+}
+
+
+
 
 .logo {
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
 }
 
 @media only screen and (min-width: 767px) {
     .mobileNav {
+	display: none;
+    }
+    .mobileNavList {
+	display: none;
+    }
+    .mobileNavListActive {
 	display: none;
     }
     
