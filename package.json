@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@animated-burgers/burger-squeeze": "^1.1.2",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
     "@orgajs/loader": "^3.1.9",
     "@orgajs/next": "^3.1.10",
     "@orgajs/react": "^3.0.1",

@@ -9,6 +9,9 @@ import Image from 'next/image'
 import Burger from '@animated-burgers/burger-squeeze' 
 // don't forget the styles
 import '@animated-burgers/burger-squeeze/dist/styles.css' 
+import styled from "@emotion/styled";
+import ThemeToggle from "../components/themeToggler";
+
 
 var burgerOpen = false
 
@@ -34,7 +37,7 @@ export default function Nav({children}) {
 			<li><Link href="donate">Donate</Link></li>
 		    </ul>
 		    <div className={styles.mobileNav}>
-			<a> Home </a>
+			<ThemeToggle />
 			<Link href="/">
 			    <Image
 				src="/images/snappy-logo.png"
@@ -47,11 +50,11 @@ export default function Nav({children}) {
 		    </div>
 		</nav>
 		<div className={!showMobileNav ? styles.mobileNavList : styles.mobileNavListActive}>
-				     <li><Link href="/">Home</Link></li>
-				     <li><Link href="blog">Blog</Link></li>
-				     <li><Link href="contact">Contact</Link></li>
-				     <li><Link href="donate">Donate</Link></li>
-				 </div>
+		    <li><Link href="/">Home</Link></li>
+		    <li><Link href="blog">Blog</Link></li>
+		    <li><Link href="contact">Contact</Link></li>
+		    <li><Link href="donate">Donate</Link></li>
+		</div>
 	    </div>
 
 	    <main>{children}</main>
