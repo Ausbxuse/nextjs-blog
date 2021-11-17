@@ -50,3 +50,11 @@
 .lightText {
   color: #666;
 }
+
+.blogContent p {
+    margin-bottom: 1rem;
+}
+.input  {
+    width: 100vw;
+    height: 100vh;
+}

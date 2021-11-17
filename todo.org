@@ -3,3 +3,8 @@
 ** TODO theme toggler
 ** TODO left item in mobile navbar
 ** TODO other pages(Contact, About, Donate)
+** TODO other blogs on blogger move here
+** TODO fix "tab focus mobile hidden items"
+** TODO don't show surrounding border for focus area
+** TODO handle tab
+** TODO auto focus

@@ -54,6 +54,7 @@ export default function Nav({children}) {
 		    <li><Link href="blog">Blog</Link></li>
 		    <li><Link href="contact">Contact</Link></li>
 		    <li><Link href="donate">Donate</Link></li>
+		    <li><Link href="cube">Cube</Link></li>
 		</div>
 	    </div>
 
