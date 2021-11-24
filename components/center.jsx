@@ -1,65 +1,58 @@
 import { useRef, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { RoundedBox } from '@react-three/drei'
+import * as THREE from 'three'
 
 export default function Box(props) {
-    const mesh = useRef()
+  const box = useRef()
 
-    const [hovered, setHover] = useState(false)
-    const [active, setActive] = useState(false)
-    // use effect?
-    const [x, setX] = useState(props.x)
-    const [y, setY] = useState(props.y)
-    const [z, setZ] = useState(props.z)
+  // use effect?
+  const x = props.x
+  const y = props.y
+  const z = props.z
 
-    const angle = Math.PI / 2
+  const angle = Math.PI / 2
 
-    const [ox, setOx] = useState(( x === 0 && z !== 0 ) ? angle : 0)
-    const [oy, setOy] = useState(0)
-    const [oz, setOz] = useState((x!==0 && z===0)? angle : 0)
+  const ox = ( x === 0 && z !== 0 ) ? angle : 0
+  const oy = 0
+  const oz = (x!==0 && z===0)? angle : 0
 
-    const [color, setColor] = useState(props.color)
+  const color = props.color
 
-    useFrame(() => {
-	// mesh.current.rotation.x += 0.01;
-	// setX(x => x - 1)
-    })
+  const quat = new THREE.Quaternion()
 
-    function rotate() {
-	setX(x => x - 1);
-    }
+  quat.setFromRotationMatrix( props.matrix )
 
-    useEffect(()=>{
-	const obj = mesh.current;
-	// obj.rotation.x += 1;
-    },[])
-    
-    return (
-	<RoundedBox
-	    args={[1, 1, 1]}
-	    // {...props}
-	    position={[x, y, z]} 
-	    ref={mesh}
-	    scale={[4.8, 4.8, 4.8]}
-	    // onClick={rotate}
-	    onPointerOver={() => setHover(true)}
-	    onPointerOut={() => setHover(false)}
-	>
-	    <meshStandardMaterial
-		attach="material"
-		color={hovered ? '#2b6c76' : '#1c1e26'}
-	    />
-	    <RoundedBox
-		args={[1, 1, 1]}
-		position={[x/10, y/10, z/10]} 
-		scale={[0.8, 0.05, 0.8]}
-		rotation={[ ox, oy, oz]}
-	    >
-		<meshStandardMaterial
-		    attach="material"
-		    color={color}
-		/>
-	    </RoundedBox>
-	</RoundedBox>
-    )
+  useFrame(() => {
+    box.current.quaternion.slerp(quat,0.1)
+  })
+
+
+  return (
+    <group ref={box}>
+      <RoundedBox
+        args={[1, 1, 1]}
+        // {...props}
+        position={[x, y, z]} 
+        scale={[4.8, 4.8, 4.8]}
+        // onClick={rotate}
+      >
+        <meshStandardMaterial
+          attach="material"
+          color={'#1c1e26'}
+          />
+        <RoundedBox
+          args={[1, 1, 1]}
+          position={[x/10, y/10, z/10]} 
+          scale={[0.8, 0.05, 0.8]}
+          rotation={[ ox, oy, oz]}
+        >
+          <meshStandardMaterial
+            attach="material"
+            color={color}
+            />
+        </RoundedBox>
+      </RoundedBox>
+    </group>
+  )
 }
