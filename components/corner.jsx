@@ -23,14 +23,14 @@ export default function Box(props) {
 
   // sticker position
   const x1 = 0
-  const y1 = y/10
+  const y1 = y / 10
   const z1 = 0
 
   const x2 = 0
   const y2 = 0
-  const z2 = z/10
+  const z2 = z / 10
 
-  const x3 = x/10
+  const x3 = x / 10
   const y3 = 0
   const z3 = 0
 
@@ -54,10 +54,10 @@ export default function Box(props) {
 
   const quat = new THREE.Quaternion()
 
-  quat.setFromRotationMatrix( props.matrix )
+  quat.setFromRotationMatrix(props.matrix)
 
   useFrame(() => {
-    box.current.quaternion.slerp(quat,0.1)
+    box.current.quaternion.slerp(quat, 0.1)
   })
 
   return (
@@ -65,46 +65,46 @@ export default function Box(props) {
       <RoundedBox
         args={[1, 1, 1]}
         {...props}
-        position={[x, y, z]} 
+        position={[x, y, z]}
         scale={[4.8, 4.8, 4.8]}
-        // onClick={rotate}
+      // onClick={rotate}
       >
         <meshStandardMaterial
           attach="material"
           color={'#1c1e26'}
-          />
+        />
         <RoundedBox
           args={[1, 1, 1]}
-          position={[x1, y1, z1]} 
+          position={[x1, y1, z1]}
           scale={[0.8, 0.05, 0.8]}
-          rotation={[ ox1, oy1, oz1]}
+          rotation={[ox1, oy1, oz1]}
         >
           <meshStandardMaterial
             attach="material"
             color={color1}
-            />
+          />
         </RoundedBox>
         <RoundedBox
           args={[1, 1, 1]}
-          position={[x2, y2, z2]} 
+          position={[x2, y2, z2]}
           scale={[0.8, 0.05, 0.8]}
-          rotation={[ ox2, oy2, oz2 ]}
+          rotation={[ox2, oy2, oz2]}
         >
           <meshStandardMaterial
             attach="material"
             color={color2}
-            />
+          />
         </RoundedBox>
         <RoundedBox
           args={[1, 1, 1]}
-          position={[x3, y3, z3]} 
+          position={[x3, y3, z3]}
           scale={[0.8, 0.05, 0.8]}
-          rotation={[ ox3, oy3, oz3 ]}
+          rotation={[ox3, oy3, oz3]}
         >
           <meshStandardMaterial
             attach="material"
             color={color3}
-            />
+          />
         </RoundedBox>
       </RoundedBox>
     </group>
