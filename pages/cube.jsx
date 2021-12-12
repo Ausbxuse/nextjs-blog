@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Stars, OrbitControls } from '@react-three/drei'
-import Center from '../components/center'
-import Edge from '../components/edge'
-import Corner from '../components/corner'
+import Cube from '../components/Cube'
 import utilStyles from '../styles/utils.module.css'
 import * as THREE from 'three'
 
 export default function BoxesPage() {
+
+  const keyBoard = useRef()
+  const [movesString, setMovesString] = useState("Moves: ")
+  const [key, setKey] = useState("")
 
   const mMat0 = new THREE.Matrix4()
   const mMat1 = new THREE.Matrix4()
@@ -37,8 +39,6 @@ export default function BoxesPage() {
   const eMat9 = new THREE.Matrix4()
   const eMat10 = new THREE.Matrix4()
   const eMat11 = new THREE.Matrix4()
-
-
 
   function arraySwap(arr, index1, index2) {
     [arr[index1], arr[index2]] = [arr[index2], arr[index1]]
@@ -246,7 +246,6 @@ export default function BoxesPage() {
         setCenterSetterState(tmpCenterSetterState)
       }
 
-
     } else if (axis === "x") {
 
     }
@@ -309,87 +308,102 @@ export default function BoxesPage() {
 
     setCenterState([center0, center1, center2, center3, center4, center5])
     setCenterSetterState([setM0, setM1, setM2, setM3, setM4, setM5])
+
+    setMovesString("Moves: ")
   }
-
-
-  const [key, setKey] = useState("")
-
-  useEffect(() => {
-  }, [])
 
   // handle keys
   function keyDownHandler(event) {
     if (event.code === "KeyF") {
       Up()
+      setMovesString((movesString) => movesString += "U' ")
     }
     else if (event.code === "KeyJ") {
       U()
+      setMovesString((movesString) => movesString += "U ")
     } else if (event.code === "KeyK") {
       R()
+      setMovesString((movesString) => movesString += "R ")
     } else if (event.code === "KeyL") {
       Rp()
+      setMovesString((movesString) => movesString += "R' ")
     } else if (event.code === "KeyA") {
       D()
+      setMovesString((movesString) => movesString += "D ")
     } else if (event.code === "Semicolon") {
       Dp()
+      setMovesString((movesString) => movesString += "D' ")
     } else if (event.code === "KeyM") {
       F()
+      setMovesString((movesString) => movesString += "F ")
     } else if (event.code === "KeyV") {
       Fp()
+      setMovesString((movesString) => movesString += "F' ")
     } else if (event.code === "KeyS") {
       Lp()
+      setMovesString((movesString) => movesString += "L' ")
     } else if (event.code === "KeyD") {
       L()
+      setMovesString((movesString) => movesString += "L ")
     } else if (event.code === "Tab") {
-      // FIXME have to tap twice
       event.preventDefault()
       event.stopPropagation()
       Reset()
     } else if (event.code === "KeyX") {
       rotate("y")
+      setMovesString((movesString) => movesString += "y ")
     }
 
     // setKey(event.code)
 
   }
 
+  useEffect(() => {
+    keyBoard.current.focus()
+  }, [])
+
+  // handle keys
   return (
-    <div autoFocus tabIndex={0} onKeyDown={(e) => keyDownHandler(e)} className={utilStyles.input}>
+    <div ref={keyBoard} tabIndex={0} onKeyDown={(e) => keyDownHandler(e)} className={utilStyles.input}>
+      <div className={utilStyles.movesStringWrap}>
+        <div className={utilStyles.movesString}>
+          {movesString}
+        </div>
+      </div>
       <Canvas camera={{ position: [0, 0, 35], aspectRatio: 1 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[20, 20, 20]} />
-        <Stars />
-
-        <Center x={0} y={5} z={0} color={"#ffffff"} matrix={center0.mat} />
-        <Center x={0} y={-5} z={0} color={"#ffff00"} matrix={center1.mat} />
-        <Center x={0} y={0} z={5} color={"#00ff00"} matrix={center2.mat} />
-        <Center x={-5} y={0} z={0} color={"#ffa500"} matrix={center3.mat} />
-        <Center x={0} y={0} z={-5} color={"#0000ff"} matrix={center4.mat} />
-        <Center x={5} y={0} z={0} color={"#ff0000"} matrix={center5.mat} />
-
-        <Corner x={-5} y={5} z={5} color1={"#ffffff"} color2={"#00ff00"} color3={"#ffa500"} matrix={corner0.mat} ori={corner0.ori} />
-        <Corner x={-5} y={5} z={-5} color1={"#ffffff"} color2={"#0000ff"} color3={"#ffa500"} matrix={corner1.mat} ori={corner1.ori} />
-        <Corner x={5} y={5} z={-5} color1={"#ffffff"} color2={"#0000ff"} color3={"#ff0000"} matrix={corner2.mat} ori={corner2.ori} />
-        <Corner x={5} y={5} z={5} color1={"#ffffff"} color2={"#00ff00"} color3={"#ff0000"} matrix={corner3.mat} ori={corner3.ori} />
-        <Corner x={-5} y={-5} z={5} color1={"#ffff00"} color2={"#00ff00"} color3={"#ffa500"} matrix={corner4.mat} ori={corner4.ori} />
-        <Corner x={-5} y={-5} z={-5} color1={"#ffff00"} color2={"#0000ff"} color3={"#ffa500"} matrix={corner5.mat} ori={corner5.ori} />
-        <Corner x={5} y={-5} z={-5} color1={"#ffff00"} color2={"#0000ff"} color3={"#ff0000"} matrix={corner6.mat} ori={corner6.ori} />
-        <Corner x={5} y={-5} z={5} color1={"#ffff00"} color2={"#00ff00"} color3={"#ff0000"} matrix={corner7.mat} ori={corner7.ori} />
-
-        <Edge x={0} y={5} z={5} color1={"#ffffff"} color2={"#00ff00"} matrix={edge0.mat} ori={edge0.ori} />
-        <Edge x={-5} y={5} z={0} color1={"#ffffff"} color2={"#ffa500"} matrix={edge1.mat} ori={edge1.ori} />
-        <Edge x={0} y={5} z={-5} color1={"#ffffff"} color2={"#0000ff"} matrix={edge2.mat} ori={edge2.ori} />
-        <Edge x={5} y={5} z={0} color1={"#ffffff"} color2={"#ff0000"} matrix={edge3.mat} ori={edge3.ori} />
-        <Edge x={0} y={-5} z={5} color1={"#ffff00"} color2={"#00ff00"} matrix={edge4.mat} ori={edge4.ori} />
-        <Edge x={-5} y={-5} z={0} color1={"#ffff00"} color2={"#ffa500"} matrix={edge5.mat} ori={edge5.ori} />
-        <Edge x={0} y={-5} z={-5} color1={"#ffff00"} color2={"#0000ff"} matrix={edge6.mat} ori={edge6.ori} />
-        <Edge x={5} y={-5} z={0} color1={"#ffff00"} color2={"#ff0000"} matrix={edge7.mat} ori={edge7.ori} />
-        <Edge x={5} y={0} z={5} color1={"#00ff00"} color2={"#ff0000"} matrix={edge8.mat} ori={edge8.ori} />
-        <Edge x={-5} y={0} z={5} color1={"#00ff00"} color2={"#ffa500"} matrix={edge9.mat} ori={edge9.ori} />
-        <Edge x={-5} y={0} z={-5} color1={"#0000ff"} color2={"#ffa500"} matrix={edge10.mat} ori={edge10.ori} />
-        <Edge x={5} y={0} z={-5} color1={"#0000ff"} color2={"#ff0000"} matrix={edge11.mat} ori={edge11.ori} />
-
         <OrbitControls />
+        <Cube
+          center0={center0}
+          center1={center1}
+          center2={center2}
+          center3={center3}
+          center4={center4}
+          center5={center5}
+
+          corner0={corner0}
+          corner1={corner1}
+          corner2={corner2}
+          corner3={corner3}
+          corner4={corner4}
+          corner5={corner5}
+          corner6={corner6}
+          corner7={corner7}
+
+          edge0={edge0}
+          edge1={edge1}
+          edge2={edge2}
+          edge3={edge3}
+          edge4={edge4}
+          edge5={edge5}
+          edge6={edge6}
+          edge7={edge7}
+          edge8={edge8}
+          edge9={edge9}
+          edge10={edge10}
+          edge11={edge11}
+        ></Cube>
       </Canvas>
     </div>
   )

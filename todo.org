@@ -8,3 +8,5 @@
 ** TODO don't show surrounding border for focus area
 ** TODO handle tab
 ** TODO auto focus
+   TODO voice scramble/solve for mobile
+   capitalization of classes
